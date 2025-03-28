@@ -7,35 +7,154 @@
 int main() {
     // Nível Novato - Posicionamento dos Navios
     // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
-    int tabuleiro[5][5] = {
-        {0, 0, 0, 0, 0},
-        {0, 0, 3, 3, 3},
-        {3, 0, 0, 0, 0},
-        {3, 0, 0, 0, 0},
-        {3, 0, 0, 0, 0}
+    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
+    // Sugestão: Expanda o tabuleiro para uma matriz 10x10
+    int tabuleiro[10][10] = {
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
     };
 
     // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
-    int nav1[3] = {3, 3, 3};
+    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
+    for (int iteracao = 1; iteracao < 5; iteracao++) {
+        int l, c;
 
-    int nav2[3][1] = {
-        {3},
-        {3},
-        {3}
-    };
+        //Mostra o tabuleiro pro jogador
+        printf("Tabuleiro: \n");
+        for (int l = 0; l < 10; l++) {
+            for (int c = 0; c < 10; c++) {
+                printf("%d  ", tabuleiro[l][c]);
+            }
+            printf("\n");
+        }
+
+        while (1) {
+            int direcao;
+            //Vê se é o primeiro navio
+            if (iteracao == 1) {
+                //Pergunta qual a direção que o navio
+                printf("Qual a linha da coordenada inicial do 1° navio (Horizontal para a direita): \n");
+                scanf("%d", &l);
+                printf("Qual a coluna da coordenada inicial do 1° navio (Horizontal para a direita): \n");
+                scanf("%d", &c);
+
+                //Checa se o navio sairá do mapa
+                if (c != 10 && (c + 1) != 10 && (c + 2) != 10) {
+                    //Checa se tem outro navio naquela direção
+                    if (tabuleiro[l][c] == 0 && tabuleiro[l][c + 1] == 0 && tabuleiro[l][c + 2] ==  0) {
+                        for (int i = 0; i < 3; i++) {
+                            tabuleiro[(l)][(c + i)] = 3;
+                        }   
+                        break;
+                    } else {
+                        //Navio saiu do mapa
+                        printf("Existe outro navio nessa direção, insira outras coordenadas. \n");
+                        continue;
+                    }
+                } else {
+                    //Tem outro navio no caminho
+                    printf("O navio saiu do tabuleiro, insira outras coordenadas. \n");
+                    continue;
+                }
+
+            //Vê se é o segundo navio
+            } else if (iteracao == 2) {
+                //Pergunta qual a direção que o navio
+                printf("Qual a linha da coordenada inicial do 2° navio (Vertical para a cima): \n");
+                scanf("%d", &l);
+                printf("Qual a coluna da coordenada inicial do 2° navio (Vertical para cima): \n");
+                scanf("%d", &c);
+
+                //Checa se o navio sairá do mapa
+                if (l != -1 && (l - 1) != -1 && (l - 2) != -1) {
+                    //Checa se tem outro navio naquela direção
+                    if (tabuleiro[l][c] == 0 && tabuleiro[l - 1][c] == 0 && tabuleiro[l - 2][c] ==  0) {
+                        for (int i = 0; i < 3; i++) {
+                            tabuleiro[(l - i)][c] = 3;
+                        }   
+                        break;
+                    } else {
+                        //Navio saiu do mapa
+                        printf("Existe outro navio nessa direção, insira outras coordenadas. \n");
+                        continue;
+                    }
+                } else {
+                    //Tem outro navio no caminho
+                    printf("O navio saiu do tabuleiro, insira outras coordenadas. \n");
+                    continue;
+                }
+            } else if (iteracao == 3) {
+                //Pergunta qual a direção que o navio
+                printf("Qual a linha da coordenada inicial do 3° navio (Diagonal: Baixo esquerda): \n");
+                scanf("%d", &l);
+                printf("Qual a coluna da coordenada inicial do 3° navio (Diagonal: Baixo esquerda): \n");
+                scanf("%d", &c);
+
+                //Checa se o navio sairá do mapa
+                if (l != -1 && (l - 1) != -1 && (l - 2) != -1 && c != -1 && (c + 1) != -1 && (c + 2) != -1) {
+                    //Checa se tem outro navio naquela direção
+                    if (tabuleiro[l][c] == 0 && tabuleiro[l + 1][c - 1] == 0 && tabuleiro[l + 2][c - 2] ==  0) {
+                        for (int i = 0; i < 3; i++) {
+                            tabuleiro[(l + i)][c - i] = 3;
+                        }   
+                        break;
+                    } else {
+                        //Navio saiu do mapa
+                        printf("Existe outro navio nessa direção, insira outras coordenadas. \n");
+                        continue;
+                    }
+                } else {
+                    //Tem outro navio no caminho
+                    printf("O navio saiu do tabuleiro, insira outras coordenadas. \n");
+                    continue;
+                }
+            } else {
+                //Pergunta qual a direção que o navio
+                printf("Qual a linha da coordenada inicial do 4° navio (Diagonal: Cima direita): \n");
+                scanf("%d", &l);
+                printf("Qual a coluna da coordenada inicial do 4° navio (Diagonal: Cima direita): \n");
+                scanf("%d", &c);
+
+                //Checa se o navio sairá do mapa
+                if (l != 10 && (l + 1) != 10 && (l + 2) != 10 && c != 10 && (c - 1) != 10 && (c - 2) != 10) {
+                    //Checa se tem outro navio naquela direção
+                    if (tabuleiro[l][c] == 0 && tabuleiro[l - 1][c + 1] == 0 && tabuleiro[l - 2][c + 2] ==  0) {
+                        for (int i = 0; i < 3; i++) {
+                            tabuleiro[(l - i)][c + i] = 3;
+                        }   
+                        break;
+                    } else {
+                        //Navio saiu do mapa
+                        printf("Existe outro navio nessa direção, insira outras coordenadas. \n");
+                        continue;
+                    }
+                } else {
+                    //Tem outro navio no caminho
+                    printf("O navio saiu do tabuleiro, insira outras coordenadas. \n");
+                    continue;
+                }                
+            }
+            
+        }
+    }
 
     // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
-    for (int l = 0; l < 5; l++) {
-        for (int c = 0; c < 5; c++) {
+    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
+    printf("Tabuleiro: \n");
+    for (int l = 0; l < 10; l++) {
+        for (int c = 0; c < 10; c++) {
             printf("%d  ", tabuleiro[l][c]);
         }
         printf("\n");
     }
-
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
 
     // Nível Mestre - Habilidades Especiais com Matrizes
     // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
