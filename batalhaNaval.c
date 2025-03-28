@@ -22,6 +22,55 @@ int main() {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
     };
 
+    // Nível Mestre - Habilidades Especiais com Matrizes
+    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
+    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
+    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
+
+    // Exemplos de exibição das habilidades:
+    // Exemplo para habilidade em cone:
+    // 0 0 1 0 0
+    // 0 1 1 1 0
+    // 1 1 1 1 1
+    int startl = 2, startc = 4, ad = 0;
+    for (int i = 1; i < 4; i++) {
+        for (int j = 0; j < (i + ad); j++) {
+            tabuleiro[startl][startc + j] = 1;
+        } 
+        startl++;
+        startc--;
+        ad++;
+    }
+    // Exemplo para habilidade em octaedro:
+    // 0 0 1 0 0
+    // 0 1 1 1 0
+    // 0 0 1 0 0
+    for (int i = 1; i < 3; i++) {
+        //fazer a linha vertical
+        for (int j = 0; j < 3; j++) {
+            tabuleiro[6][4 + j] = 1;
+        } 
+        //fazer a linha horizontal
+        for (int j = 0; j < 3; j++) {
+            tabuleiro[5 + j][5] = 1;
+        } 
+    }
+
+    // Exemplo para habilidade em cruz:
+    // 0 0 1 0 0
+    // 1 1 1 1 1
+    // 0 0 1 0 0
+    for (int i = 1; i < 3; i++) {
+        //fazer a linha vertical
+        for (int j = 0; j < 5; j++) {
+            tabuleiro[8][0 + j] = 1;
+        } 
+        //fazer a linha horizontal
+        for (int j = 0; j < 3; j++) {
+            tabuleiro[9 - j][2] = 1;
+        } 
+    }
+
     // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
     // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
     for (int iteracao = 1; iteracao < 5; iteracao++) {
@@ -49,7 +98,7 @@ int main() {
                 //Checa se o navio sairá do mapa
                 if (c != 10 && (c + 1) != 10 && (c + 2) != 10) {
                     //Checa se tem outro navio naquela direção
-                    if (tabuleiro[l][c] == 0 && tabuleiro[l][c + 1] == 0 && tabuleiro[l][c + 2] ==  0) {
+                    if (tabuleiro[l][c] != 3 && tabuleiro[l][c + 1] != 3 && tabuleiro[l][c + 2] != 3) {
                         for (int i = 0; i < 3; i++) {
                             tabuleiro[(l)][(c + i)] = 3;
                         }   
@@ -76,7 +125,7 @@ int main() {
                 //Checa se o navio sairá do mapa
                 if (l != -1 && (l - 1) != -1 && (l - 2) != -1) {
                     //Checa se tem outro navio naquela direção
-                    if (tabuleiro[l][c] == 0 && tabuleiro[l - 1][c] == 0 && tabuleiro[l - 2][c] ==  0) {
+                    if (tabuleiro[l][c] != 3 && tabuleiro[l - 1][c] != 3 && tabuleiro[l - 2][c] != 3) {
                         for (int i = 0; i < 3; i++) {
                             tabuleiro[(l - i)][c] = 3;
                         }   
@@ -101,7 +150,7 @@ int main() {
                 //Checa se o navio sairá do mapa
                 if (l != -1 && (l - 1) != -1 && (l - 2) != -1 && c != -1 && (c + 1) != -1 && (c + 2) != -1) {
                     //Checa se tem outro navio naquela direção
-                    if (tabuleiro[l][c] == 0 && tabuleiro[l + 1][c - 1] == 0 && tabuleiro[l + 2][c - 2] ==  0) {
+                    if (tabuleiro[l][c] != 3 && tabuleiro[l + 1][c - 1] != 3 && tabuleiro[l + 2][c - 2] != 3) {
                         for (int i = 0; i < 3; i++) {
                             tabuleiro[(l + i)][c - i] = 3;
                         }   
@@ -126,7 +175,7 @@ int main() {
                 //Checa se o navio sairá do mapa
                 if (l != 10 && (l + 1) != 10 && (l + 2) != 10 && c != 10 && (c - 1) != 10 && (c - 2) != 10) {
                     //Checa se tem outro navio naquela direção
-                    if (tabuleiro[l][c] == 0 && tabuleiro[l - 1][c + 1] == 0 && tabuleiro[l - 2][c + 2] ==  0) {
+                    if (tabuleiro[l][c] != 3 && tabuleiro[l - 1][c + 1] != 3 && tabuleiro[l - 2][c + 2] != 3) {
                         for (int i = 0; i < 3; i++) {
                             tabuleiro[(l - i)][c + i] = 3;
                         }   
@@ -156,26 +205,7 @@ int main() {
         printf("\n");
     }
 
-    // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
 
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
-    
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
-
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
 
     return 0;
 }
